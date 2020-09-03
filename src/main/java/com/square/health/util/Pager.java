@@ -3,9 +3,7 @@ package com.square.health.util;
 import com.square.health.model.Post;
 import org.springframework.data.domain.Page;
 
-/**
- * @author Dusan Raljic
- */
+
 public class Pager {
 
     private final Page<Post> posts;
