@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="posts">
+
+    <div class="starter-template panel" th:each="post : ${pager.posts}">
+        <div class="panel-heading">
+            <h1><a th:text="${post.title}" th:href="@{'/post/' + ${post.id}}">Title</a></h1>
+            <div th:text="'Created: ' + ${#dates.format(post.createDate, 'dd-MMM-yyyy')} + ' by '">
+                Created by
+            </div>
+            <div><a th:text="${post.user.username}" th:href="@{'/blog/' + ${post.user.username}}">User</a>
+            </div>
+        </div>
+        <h3 class="panel-body" th:text="${post.body}">Body</h3>
+        <br></br>
+
+        <!--<div class="btn-group" role="group" aria-label="Basic example" th:if="${approve == 1}">
+            <button type="submit" name="action" value="approve" class="btn btn-secondary" >Approve</button>
+            <button type="submit" name="action" value="reject" class="btn btn-secondary">Reject</button>
+
+        </div>
+-->
+
+        <div class="row" th:if="${approvePage == 1}">
+            <div class="col-md-6 col-md-offset-3">
+                <form action="#" th:action="@{'/post/{id}'(id=${post.id})}" th:method="put"
+                      class="form-horizontal">
+                    <div class="form-group">
+                        <!--<input type="hidden" name="_method" value="delete"/>-->
+                        <button type="submit" class="btn btn-success btn-block" th:text="Approve">Approve</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row" th:if="${approvePage == 1}">
+            <div class="col-md-6 col-md-offset-3">
+                <form action="#" th:action="@{'/reject/{id}'(id=${post.id})}" th:method="delete"
+                      class="form-horizontal">
+                    <div class="form-group">
+                        <!--<input type="hidden" name="_method" value="delete"/>-->
+                        <button type="submit" class="btn btn-danger btn-block" th:text="Reject">Reject</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="row" th:if="${pageLike == 1}">
+            <div class="col-md-6 col-md-offset-3">
+                <form action="#" th:action="@{'/like/{id}'(id=${post.id})}" th:method="post"
+                      class="form-horizontal">
+                    <div class="form-group">
+                        <!--<input type="hidden" name="_method" value="delete"/>-->
+                        <button type="submit" class="btn btn-primary btn-block" th:text="Like">Like</button>
+                        <p th:text="${post.totalLikes}" style="text-align: center; font-size: large; font-weight: 600;">Text ...</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
